@@ -1,0 +1,69 @@
+{
+  "name": "find-thy-face-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/find-thy-face-client/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/find-thy-face-client"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "find-thy-face-client:build",
+        "proxyConfig": "apps/find-thy-face-client/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "find-thy-face-client:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "find-thy-face-client:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "find-thy-face-client:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "find-thy-face-client:build:development"
+        },
+        "production": {
+          "buildTarget": "find-thy-face-client:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/apps/find-thy-face-client"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}

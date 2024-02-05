@@ -1,0 +1,52 @@
+{
+  "name": "find-thy-face-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/find-thy-face-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/find-thy-face-api",
+        "main": "apps/find-thy-face-api/src/main.ts",
+        "tsConfig": "apps/find-thy-face-api/tsconfig.app.json",
+        "webpackConfig": "apps/find-thy-face-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "find-thy-face-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "find-thy-face-api:build:development"
+        },
+        "production": {
+          "buildTarget": "find-thy-face-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/find-thy-face-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
