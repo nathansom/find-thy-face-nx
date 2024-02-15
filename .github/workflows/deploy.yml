@@ -37,8 +37,6 @@ jobs:
         run: npx nx run find-thy-face-api:build:production
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Authenticate Vercel account
-        run: vercel login --token=${{ secrets.VERCEL_TOKEN }}
       - name: Pull Vercel Environment Information
         working-directory: dist/apps/find-thy-face-client
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
