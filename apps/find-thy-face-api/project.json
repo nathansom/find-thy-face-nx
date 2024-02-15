@@ -14,7 +14,8 @@
         "outputPath": "dist/apps/find-thy-face-api",
         "main": "apps/find-thy-face-api/src/main.ts",
         "tsConfig": "apps/find-thy-face-api/tsconfig.app.json",
-        "webpackConfig": "apps/find-thy-face-api/webpack.config.js"
+        "webpackConfig": "apps/find-thy-face-api/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
