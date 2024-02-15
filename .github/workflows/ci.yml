@@ -6,7 +6,33 @@ on:
   pull_request:
 
 jobs:
-  main:
+  setup:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello GitHub Actions!"
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+            node-version: 20
+      - name: Restore cached npm dependencies
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+      - name: Install node modules
+        run: npm ci
+      - name: Cache npm dependencies
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+      - name: Build client app
+        run: npx nx run find-thy-face-client:build:development
+      - name: Build server app
+        run: npx nx run find-thy-face-api:build:production
+
+
+
