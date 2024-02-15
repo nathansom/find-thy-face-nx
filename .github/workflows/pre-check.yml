@@ -1,8 +1,5 @@
-name: FindThyFace CI
+name: Pre-Check
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 jobs:
