@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-WORKDIR /findthyface
+WORKDIR ../../
 COPY ./dist/apps/find-thy-face-api .
 ENV PORT=8080
 EXPOSE ${PORT}
