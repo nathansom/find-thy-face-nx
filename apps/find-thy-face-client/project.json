@@ -10,7 +10,8 @@
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/find-thy-face-client",
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "includeDevDependenciesInPackageJson": true
       },
       "configurations": {
         "development": {
