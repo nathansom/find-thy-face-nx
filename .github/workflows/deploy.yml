@@ -48,7 +48,7 @@ jobs:
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy server app to Fly.io
-        working-directory: dist/apps/find-thy-face-api
+        working-directory: apps/find-thy-face-api
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
