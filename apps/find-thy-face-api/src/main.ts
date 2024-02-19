@@ -12,21 +12,20 @@ import image from './controllers/image';
 // Load .env
 config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const db = knex({
   client: 'pg',
   connection: {
-    // connectionString: process.env.DATABASE_URL,
-    // ssl: {
-    //   rejectUnauthorized: false,
-    // },
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
     // Uncomment for local development
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    
+    // host: process.env.DB_HOST,
+    // user: process.env.DB_USER,
+    // password: process.env.DB_PASS,
+    // database: process.env.DB_NAME,
   },
 });
 
@@ -56,7 +55,7 @@ app.put('/entries', (req: Request, res: Response) => {
   image.handleEntry(req, res, db);
 });
 
-const server = app.listen(PORT || 3000, () => {
+const server = app.listen(PORT, () => {
   console.log(`app is runnning on port ${PORT}`);
 });
 

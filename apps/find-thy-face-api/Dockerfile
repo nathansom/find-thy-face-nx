@@ -1,27 +1,11 @@
-FROM node:16-alpine as builder
-
-ENV NODE_ENV build
-
+FROM docker.io/node:lts-alpine
 USER node
-WORKDIR /home/node
+WORKDIR /app
 
-COPY --chown=node package.json package-lock.json ./
-RUN npm ci
+RUN npm install tslib express dotenv body-parser cors knex bcrypt
 
-COPY --chown=node . .
-RUN npx nx run find-thy-face-api:build:production && npm prune --production
-
-FROM node:16-alpine
-
-ENV NODE_ENV production
-
-USER node
-WORKDIR /home/node
-
-COPY --from=builder /home/node/package*.json /home/node/
-COPY --from=builder /home/node/node_modules/ /home/node/node_modules/
-COPY --from=builder /home/node/dist/apps/find-thy-face-api /home/node/dist/apps/find-thy-face-api
+COPY --chown=node ./dist/apps/find-thy-face-api ./dist/apps/find-thy-face-api
+ENV NODE_ENV=production
 
 EXPOSE 3000
-
-CMD ["node", "dist/apps/find-thy-face-api/main.js"]
+CMD ["node", "./dist/apps/find-thy-face-api/main.js"]
