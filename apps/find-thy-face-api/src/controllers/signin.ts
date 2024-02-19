@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { compareSync } from "bcrypt";
-import { Knex } from "knex";
+import { Request, Response } from 'express';
+import { compareSync } from 'bcrypt';
+import { Knex } from 'knex';
 
 const handleSignin = (req: Request, res: Response, db: Knex) => {
   const { email, password } = req.body;
@@ -19,7 +19,7 @@ const handleSignin = (req: Request, res: Response, db: Knex) => {
             .select('*')
             .from('users')
             .where('email', '=', email);
-            
+
           res.json(user[0]);
         } catch {
           return res.status(400).json('Unable to get the user');
@@ -28,7 +28,10 @@ const handleSignin = (req: Request, res: Response, db: Knex) => {
         res.status(400).json('Wrong credentials');
       }
     })
-    .catch(() => res.status(400).json('wrong credentials'));
+    .catch((reason: unknown) => {
+      console.log(reason);
+      return res.status(400).json('wrong credentials');
+    });
 };
 
 export default { handleSignin };
