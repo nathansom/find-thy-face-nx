@@ -11,9 +11,12 @@ const handleEntry = (req: Request, res: Response, db: Knex) => {
     .then((entries) => {
       res.json(entries[0]);
     })
-    .catch(() => res.status(400).json('Unable to get entries'));
+    .catch((reason: unknown) => {
+      console.log(reason);
+      return res.status(400).json('Unable to get entries');
+    });
 };
 
 export default {
-  handleEntry
+  handleEntry,
 };

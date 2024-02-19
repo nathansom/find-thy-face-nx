@@ -31,7 +31,10 @@ const handleRegister = (req: Request, res: Response, db: Knex) => {
       })
       .then(trx.commit)
       .catch(trx.rollback);
-  }).catch(() => res.status(400).json('unable to register'));
+  }).catch((reason: unknown) => {
+    console.log(reason);
+    return res.status(400).json('unable to register');
+  });
 };
 
 export default {

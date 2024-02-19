@@ -14,7 +14,10 @@ const handleProfile = (req: Request, res: Response, db: Knex) => {
         res.status(400).json('Not found');
       }
     })
-    .catch(() => res.status(400).json('Not Found'));
+    .catch((reason: unknown) => {
+      console.log(reason);
+      return res.status(400).json('Not Found');
+    });
 };
 
 export default { handleProfile };
