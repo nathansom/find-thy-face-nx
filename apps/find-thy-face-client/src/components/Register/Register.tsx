@@ -1,4 +1,5 @@
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, MouseEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Register = (props: any) => {
@@ -18,32 +19,49 @@ export const Register = (props: any) => {
     setPassword(event.target.value);
   };
 
-  const onSubmitSignIn: React.MouseEventHandler<
+  const onSubmitRegistration: React.MouseEventHandler<
     HTMLInputElement
-  > = async () => {
-    const response = await fetch(
-        process.env.REACT_APP_BACKEND_URL + '/register',
-        {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            password,
-            name,
-          }),
-        }
-      ),
-      user = await response.json();
+  > = async (e: MouseEvent<HTMLInputElement>) => {
+    e.preventDefault();
 
-    if ('id' in user && user.id) {
-      props.loadUser(user);
-      props.onRouteChange('home');
-    }
+    toast.promise(
+      (async () => {
+        try {
+          const response = await fetch(
+              process.env.REACT_APP_BACKEND_URL + '/register',
+              {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email,
+                  password,
+                  name,
+                }),
+              }
+            ),
+            user = await response.json();
+
+          if (response.status > 299) toast.error(user);
+
+          if ('id' in user && user.id) {
+            props.loadUser(user);
+            props.onRouteChange('home');
+          }
+        } catch (error: unknown) {
+          if (e instanceof Error) throw new Error(e.message);
+        }
+      })(),
+      {
+        pending: 'Registering new account ...',
+        success: "You're registered successfully!",
+        error: 'Registration failed.',
+      }
+    );
   };
 
   return (
     <div className="flex justify-center items-center">
-      <main className="p-4 rounded w-full md:w-3/6 lg:w-1/4 shadow-lg">
+      <main className="p-4 rounded w-full md:w-3/6 lg:w-1/4 shadow-lg backdrop-blur-sm">
         <div className="measure">
           <fieldset id="register" className="bg-transparent py-0 my-0">
             <legend className="py-0 my-0 text-white text-2xl">Register</legend>
@@ -86,7 +104,7 @@ export const Register = (props: any) => {
           </fieldset>
           <div className="">
             <input
-              onClick={onSubmitSignIn}
+              onClick={onSubmitRegistration}
               className="btn-primary"
               type="submit"
               value="Register"

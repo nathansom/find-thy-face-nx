@@ -67,7 +67,7 @@ export const SignIn = ({
 
   return (
     <div className="flex justify-center items-center">
-      <main className="p-4 rounded w-full md:w-3/6 lg:w-1/4 shadow-lg">
+      <main className="p-4 rounded w-full md:w-3/6 lg:w-1/4 shadow-lg backdrop-blur-sm">
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore */}
         <form onSubmit={onSubmitSignIn}>
