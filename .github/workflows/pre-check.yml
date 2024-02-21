@@ -15,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
             node-version: 20
+      - name: Start Nx Cloud CI
+        run: nx-cloud start-ci-run --distribute-on="3 linux-medium-j" --stop-agents-after="deploy-preview"
       - name: Restore cached npm dependencies
         uses: actions/cache/restore@v3
         with:

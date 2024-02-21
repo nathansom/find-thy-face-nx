@@ -18,6 +18,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
             node-version: 20
+      - name: Start Nx Cloud CI
+        run: nx-cloud start-ci-run --distribute-on="3 linux-medium-j" --stop-agents-after="deploy"
       - name: Restore cached npm dependencies
         uses: actions/cache/restore@v3
         with:
@@ -36,7 +38,6 @@ jobs:
         run: npm install --global vercel@latest
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - uses: nrwl/nx-set-shas@v3
-      - run: git branch --track main origin/main
       - name: Deploy affected projects
         run: npx nx affected -t deploy --parallel=2 --output-style=stream --args="--token=${{ secrets.VERCEL_TOKEN }} --verbose"
         env:
