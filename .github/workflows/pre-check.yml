@@ -30,7 +30,7 @@ jobs:
             node_modules
           key: npm-dependencies-${{ hashFiles('package-lock.json') }}
       - name: Build and deploy the preview of affected apps
-        run: npx nx affected -t build deploy-preview --parallel=2 --output-style=stream
+        run: npx nx affected -t build deploy-preview --parallel=2 --output-style=stream --args="--token=${{ secrets.VERCEL_TOKEN }}"
       
 
 
