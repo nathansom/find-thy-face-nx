@@ -76,7 +76,8 @@
           "vercel pull ./dist/apps/find-thy-face-client --yes --environment=preview",
           "vercel build --cwd dist/apps/find-thy-face-client",
           "vercel deploy ./dist/apps/find-thy-face-client --prebuilt"
-        ]
+        ],
+        "parallel": false
       },
       "dependsOn": ["source-env", "build"]
     },
@@ -87,7 +88,8 @@
           "vercel pull ./dist/apps/find-thy-face-client --yes --environment=preview --token={args.token}",
           "vercel build --cwd ./dist/apps/find-thy-face-client --token={args.token}",
           "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --token={args.token}"
-        ]
+        ],
+        "parallel": false
       },
       "dependsOn": ["build"]
     },
@@ -98,7 +100,8 @@
           "vercel pull ./dist/apps/find-thy-face-client --yes --environment=production",
           "vercel build --cwd ./dist/apps/find-thy-face-client --prod",
           "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --prod"
-        ]
+        ],
+        "parallel": false
       },
       "dependsOn": ["source-env", "build"]
     },
@@ -109,7 +112,8 @@
           "vercel pull ./dist/apps/find-thy-face-client --yes --environment=production --token={args.token}",
           "vercel build --cwd ./dist/apps/find-thy-face-client --prod --token={args.token}",
           "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --prod --token={args.token}"
-        ]
+        ],
+        "parallel": false
       },
       "dependsOn": ["build"]
     }
