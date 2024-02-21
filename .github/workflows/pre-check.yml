@@ -29,6 +29,8 @@ jobs:
           path: |
             node_modules
           key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+      - uses: nrwl/nx-set-shas@v3
+      - run: git branch --track main origin/main
       - name: Build and deploy the preview of affected apps
         run: npx nx affected -t build deploy-preview --parallel=2 --output-style=stream --args="--token=${{ secrets.VERCEL_TOKEN }}"
       
