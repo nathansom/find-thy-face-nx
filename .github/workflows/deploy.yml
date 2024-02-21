@@ -38,7 +38,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
       - run: git branch --track main origin/main
       - name: Deploy affected projects
-        run: npx nx affected -t deploy --parallel=2 --output-style=stream --args="--token=${{ secrets.VERCEL_TOKEN }}"
+        run: npx nx affected -t deploy --parallel=2 --output-style=stream --args="--token=${{ secrets.VERCEL_TOKEN }} --verbose"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         

@@ -89,7 +89,7 @@
           "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --token={args.token}"
         ]
       },
-      "dependsOn": ["source-env", "build"]
+      "dependsOn": ["build"]
     },
     "deploy-local": {
       "executor": "nx:run-commands",
