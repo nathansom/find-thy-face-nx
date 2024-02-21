@@ -1,5 +1,5 @@
 {
-  "name": "@types/@nathansom",
+  "name": "@types/nathansom",
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0"

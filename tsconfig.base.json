@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@types/@nathansom": [
+      "@types/nathansom": [
         "libs/models/tensorflow-js-pre-trained-models/src/index.ts"
       ]
     }

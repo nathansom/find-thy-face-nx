@@ -1,5 +1,5 @@
 {
-  "name": "@nathansom/source",
+  "name": "@nathansom/find-thy-face",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "local-registry": {
