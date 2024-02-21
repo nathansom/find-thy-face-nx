@@ -65,6 +65,53 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
+    },
+    "source-env": {
+      "command": "source .env"
+    },
+    "deploy-preview-local": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "vercel pull ./dist/apps/find-thy-face-client --yes --environment=preview",
+          "vercel build --cwd dist/apps/find-thy-face-client",
+          "vercel deploy ./dist/apps/find-thy-face-client --prebuilt"
+        ]
+      },
+      "dependsOn": ["source-env", "build"]
+    },
+    "deploy-preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "vercel pull ./dist/apps/find-thy-face-client --yes --environment=preview --token={args.token}",
+          "vercel build --cwd ./dist/apps/find-thy-face-client --token={args.token}",
+          "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --token={args.token}"
+        ]
+      },
+      "dependsOn": ["source-env", "build"]
+    },
+    "deploy-local": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "vercel pull ./dist/apps/find-thy-face-client --yes --environment=production",
+          "vercel build --cwd ./dist/apps/find-thy-face-client --prod",
+          "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --prod"
+        ]
+      },
+      "dependsOn": ["source-env", "build"]
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "vercel pull ./dist/apps/find-thy-face-client --yes --environment=production --token={args.token}",
+          "vercel build --cwd ./dist/apps/find-thy-face-client --prod --token={args.token}",
+          "vercel deploy ./dist/apps/find-thy-face-client --prebuilt --prod --token={args.token}"
+        ]
+      },
+      "dependsOn": ["build"]
     }
   },
   "tags": []

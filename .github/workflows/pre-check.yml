@@ -29,21 +29,9 @@ jobs:
           path: |
             node_modules
           key: npm-dependencies-${{ hashFiles('package-lock.json') }}
-      - name: Build client app
-        run: npx nx run find-thy-face-client:build:development
-      - name: Build server app
-        run: npx nx run find-thy-face-api:build:production
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Pull Vercel Environment Information
-        working-directory: dist/apps/find-thy-face-client
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build Project Artifacts
-        working-directory: dist/apps/find-thy-face-client
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
-        working-directory: dist/apps/find-thy-face-client
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build and deploy the preview of affected apps
+        run: npx nx affected -t build deploy-preview --parallel=2 --output-style=stream
+      
 
 
 

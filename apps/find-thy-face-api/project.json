@@ -46,6 +46,14 @@
       "options": {
         "jestConfig": "apps/find-thy-face-api/jest.config.ts"
       }
+    },
+    "deploy-local": {
+      "command": "flyctl deploy --dockerfile ./apps/find-thy-face-api/Dockerfile --config ./apps/find-thy-face-api/fly.toml --remote-only",
+      "dependsOn": ["build"]
+    },
+    "deploy": {
+      "command": "flyctl deploy --dockerfile ./apps/find-thy-face-api/Dockerfile --config ./apps/find-thy-face-api/fly.toml --remote-only",
+      "dependsOn": ["build"]
     }
   },
   "tags": []
