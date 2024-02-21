@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  setup:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,7 +14,11 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-            node-version: 20
+          node-version: 20
+      - name: Start Nx Cloud CI
+        run: npx nx-cloud start-ci-run --stop-agents-after="deploy-preview"
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN}}
       - name: Restore cached npm dependencies
         uses: actions/cache/restore@v3
         with:
@@ -33,7 +37,3 @@ jobs:
       - run: git branch --track main origin/main
       - name: Build and deploy the preview of affected apps
         run: npx nx affected -t build deploy-preview --parallel=2 --output-style=stream --args="--token=${{ secrets.VERCEL_TOKEN }} --verbose"
-      
-
-
-
