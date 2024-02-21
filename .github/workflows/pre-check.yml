@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  setup:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 20
       - name: Start Nx Cloud CI
-        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-j" --stop-agents-after="deploy-preview"
+        run: npx nx-cloud start-ci-run --stop-agents-after="deploy-preview"
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN}}
       - name: Restore cached npm dependencies
