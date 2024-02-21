@@ -50,7 +50,12 @@
     "deploy-local": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "flyctl deploy --dockerfile ./apps/find-thy-face-api/Dockerfile --config ./apps/find-thy-face-api/fly.toml --remote-only",
+        "commands": [
+          {
+            "command": "flyctl deploy --dockerfile ./apps/find-thy-face-api/Dockerfile --config ./apps/find-thy-face-api/fly.toml --remote-only",
+            "forwardAllArgs": false
+          }
+        ],
         "parallel": false
       },
       "dependsOn": ["build"]
@@ -58,7 +63,12 @@
     "deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "flyctl deploy --dockerfile ./apps/find-thy-face-api/Dockerfile --config ./apps/find-thy-face-api/fly.toml --remote-only",
+        "commands": [
+          {
+            "command": "flyctl deploy --dockerfile ./apps/find-thy-face-api/Dockerfile --config ./apps/find-thy-face-api/fly.toml --remote-only",
+            "forwardAllArgs": false
+          }
+        ],
         "parallel": false
       },
       "dependsOn": ["build"]
