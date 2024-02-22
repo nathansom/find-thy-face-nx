@@ -47,6 +47,10 @@
         "jestConfig": "apps/find-thy-face-api/jest.config.ts"
       }
     },
+    "create-build-package-json": {
+      "command": "node tools/scripts/create-package-json.mjs",
+      "dependsOn": ["build"]
+    },
     "deploy-local": {
       "executor": "nx:run-commands",
       "options": {
@@ -58,7 +62,7 @@
         ],
         "parallel": false
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["build", "create-build-package-json"]
     },
     "deploy": {
       "executor": "nx:run-commands",
@@ -71,7 +75,7 @@
         ],
         "parallel": false
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["build", "create-build-package-json"]
     }
   },
   "tags": []

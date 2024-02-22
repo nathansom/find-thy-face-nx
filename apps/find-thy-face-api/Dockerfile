@@ -1,11 +1,11 @@
 FROM docker.io/node:lts-alpine
 USER node
+ENV NODE_ENV=production
 WORKDIR /app
 
-RUN npm install tslib express dotenv body-parser cors knex bcrypt pg
-
-COPY --chown=node ./dist/apps/find-thy-face-api ./dist/apps/find-thy-face-api
-ENV NODE_ENV=production
+COPY --chown=node ./dist/apps/find-thy-face-api ./
+RUN npm ci
+RUN npm install tslib pg
 
 EXPOSE 3000
-CMD ["node", "./dist/apps/find-thy-face-api/main.js"]
+CMD ["node", "main.js"]
