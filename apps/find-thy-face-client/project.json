@@ -10,7 +10,6 @@
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/find-thy-face-client",
-        "generatePackageJson": true,
         "includeDevDependenciesInPackageJson": true
       },
       "configurations": {
@@ -66,6 +65,10 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     },
+    "create-build-package-json": {
+      "command": "node tools/scripts/create-package-json.mjs",
+      "dependsOn": ["build"]
+    },
     "source-env": {
       "command": "source .env"
     },
@@ -79,7 +82,7 @@
         ],
         "parallel": false
       },
-      "dependsOn": ["source-env", "build"]
+      "dependsOn": ["source-env", "build", "create-build-package-json"]
     },
     "deploy-preview": {
       "executor": "nx:run-commands",
@@ -91,7 +94,7 @@
         ],
         "parallel": false
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["build", "create-build-package-json"]
     },
     "deploy-local": {
       "executor": "nx:run-commands",
@@ -103,7 +106,7 @@
         ],
         "parallel": false
       },
-      "dependsOn": ["source-env", "build"]
+      "dependsOn": ["source-env", "build", "create-build-package-json"]
     },
     "deploy": {
       "executor": "nx:run-commands",
@@ -115,7 +118,7 @@
         ],
         "parallel": false
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["build", "create-build-package-json"]
     }
   },
   "tags": []
